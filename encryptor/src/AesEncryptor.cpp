@@ -60,6 +60,7 @@ IAesEncryptionMode &AesEncryptor::get_mode(void) const
 AesEncryptor::AesEncryptor(ConfigReader &config, IAesEncryptionCypher &cypher, IAesEncryptionMode &mode)
     : m_config{config}, m_cypher{cypher}, m_mode{mode}
 {
+    std::cout << "AesEncryptor constructor" << std::endl;
     init_mapCypherType(mapCypherType);
     init_mapEncryptionMode(mapEncryptionMode);
     set_cypher(make_cypher(m_config));
@@ -135,5 +136,5 @@ int AesEncryptor::encrypt()
 
 AesEncryptor::~AesEncryptor()
 {
-    std::cout << "call AesEncryptor destructor" << std::endl;
+    std::cout << "AesEncryptor destructor" << std::endl;
 }

@@ -4,6 +4,18 @@
 #include <Reader.hpp>
 #include <Writer.hpp>
 
+#define COMPLETE_CHUNK 16 // bytes
+
+typedef unsigned char byte;
+
+typedef struct chunk_s
+{
+    byte part[16];
+    unsigned size;
+} chunk_t;
+
+// reader, cypher must know what chunk_t is
+
 enum paddingMethod
 {
   pkcs
@@ -17,6 +29,7 @@ void init_mapPaddingMethod(std::map<std::string, paddingMethod> map)
 }
 IPadder& make_padder(ConfigReader& config)
 {
+    init_mapPaddingMethod(mapPaddingMethod);
     switch (mapPaddingMethod[config.padding_method()])
     {
     case pkcs:
@@ -45,30 +58,43 @@ AesModeEcb::~AesModeEcb()
 
 void AesModeEcb::apply(IAesEncryptionCypher& cypher, ConfigReader& config)
 {
-    std::cout << "AesModeEcb::apply() not implemented" << std::endl;
+    std::cout << "AesModeEcb::apply()" << std::endl;
     Reader reader;
     Writer writer;
-    init_mapPaddingMethod(mapPaddingMethod);
     IPadder& padder = make_padder(config);
-    while( nb = reader.readInputNext8Words() )
-    {
-        if(  nb= fullValue)
+    unsigned nb_bytes_read = 0;
+    chunk_t chunk;
+    chunk_t encrypted_chunk;
+    bool size_is_multiple_of_16_bytes = true;
+    while( 1 )
+     {
+        chunk = reader.readNextChunk();
+        if (!chunk.size)
+            break;
+        if (chunk.size == COMPLETE_CHUNK)
         {
-            // classic
+            // complete CHUNK
+            std::cout<<"complete CHUNK"<<std::endl;
+            encrypted_chunk = cypher.apply(chunk);
+            writer.appendInFile(encrypted_chunk);
         }
-        else if( nb < value )
+        else 
         {
-            // finish the block tha'ts all (no last block remain)
+            // incomplete CHUNK
+            std::cout<<"incomplete CHUNK"<<std::endl;
+            padder.pad(chunk);
+            encrypted_chunk = cypher.apply(chunk);
+            writer.appendInFile(encrypted_chunk);
+            size_is_multiple_of_16_bytes = false;
         }
-        else
+     }
+     if(size_is_multiple_of_16_bytes)
         {
-            // finish current and the last block is remaining
+            padder.pad(chunk); // here, chunk.size is 0 necessarily
+            encrypted_chunk = cypher.apply(chunk);
+            writer.appendInFile(encrypted_chunk);
         }
-    }
-    if( last_block_remain)
-    {
-        // treat last block (if "no" padding was needed or if padding was made of completing and new block)
-    }
+
 }
 
 void AesModeEcb::say_name()
