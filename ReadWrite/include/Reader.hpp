@@ -3,6 +3,21 @@
 
 #include <iostream>
 
+#ifndef CHUNK_DEF
+#define CHUNK_DEF
+
+#define COMPLETE_CHUNK 16 // bytes
+
+typedef unsigned char byte;
+
+typedef struct chunk_s
+{
+    byte part[16];
+    unsigned size;
+} chunk_t;
+
+#endif
+
 class Reader
 {
 private:
@@ -10,10 +25,8 @@ private:
 public:
     Reader(/* args */);
     ~Reader();
-    void openKeyFile();
-    void getKey();
     void openInputFile();
-    void readInputNext8Words();
+    chunk_t& readNextChunk();
 };
 
 

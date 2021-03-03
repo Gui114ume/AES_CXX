@@ -4,6 +4,9 @@
 #include <Reader.hpp>
 #include <Writer.hpp>
 
+#ifndef CHUNK_DEF
+#define CHUNK_DEF
+
 #define COMPLETE_CHUNK 16 // bytes
 
 typedef unsigned char byte;
@@ -14,7 +17,8 @@ typedef struct chunk_s
     unsigned size;
 } chunk_t;
 
-// reader, cypher must know what chunk_t is
+#endif
+// reader, writer, cypher, padder must know what chunk_t is
 
 enum paddingMethod
 {
@@ -90,11 +94,11 @@ void AesModeEcb::apply(IAesEncryptionCypher& cypher, ConfigReader& config)
      }
      if(size_is_multiple_of_16_bytes)
         {
+            std::cout<<"last chunk because the size(file) is multiple of 16 bytes"<<std::endl;
             padder.pad(chunk); // here, chunk.size is 0 necessarily
             encrypted_chunk = cypher.apply(chunk);
             writer.appendInFile(encrypted_chunk);
         }
-
 }
 
 void AesModeEcb::say_name()

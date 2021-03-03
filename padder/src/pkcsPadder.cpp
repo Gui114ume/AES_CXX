@@ -14,3 +14,8 @@ void pkcsPadder::say_name()
 {
     std::cout << "pkcsPadder" << std::endl;
 }
+
+void pkcsPadder::pad(chunk_t& chunk)
+{
+    std::cout << "pkcsPadder::pad() not implemented" << std::endl;
+}

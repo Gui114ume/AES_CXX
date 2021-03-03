@@ -12,6 +12,7 @@ private:
 public:
     pkcsPadder();
     virtual void say_name() override;
+    virtual void pad(chunk_t& chunk) override;
     virtual ~pkcsPadder();
 };
 
