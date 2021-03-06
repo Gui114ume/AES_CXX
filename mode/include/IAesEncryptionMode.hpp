@@ -3,6 +3,7 @@
 
 #include <configReader.hpp>
 #include <IAesEncryptionCypher.hpp>
+#include <AesTypes.hpp>
 
 class IAesEncryptionMode
 {

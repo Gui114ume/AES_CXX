@@ -3,20 +3,7 @@
 
 #include <iostream>
 
-#ifndef CHUNK_DEF
-#define CHUNK_DEF
-
-#define COMPLETE_CHUNK 16 // bytes
-
-typedef unsigned char byte;
-
-typedef struct chunk_s
-{
-    byte part[16];
-    unsigned size;
-} chunk_t;
-
-#endif
+#include <AesTypes.hpp>
 
 class Reader
 {
@@ -25,9 +12,8 @@ private:
 public:
     Reader(/* args */);
     ~Reader();
-    void openInputFile();
+    void openFile();
     chunk_t& readNextChunk();
 };
-
 
 #endif 

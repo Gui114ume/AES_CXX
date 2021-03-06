@@ -11,8 +11,10 @@ add_subdirectory(encryptor)
 add_subdirectory(ReadWrite)
 
 add_executable(main
-		main.cpp)
-		
+			main.cpp)
+
+include_directories(main PUBLIC types/include/)
+
 target_link_libraries(main PRIVATE
 			   AES_CXX::configReader
 			   AES_CXX::aesEncryptor

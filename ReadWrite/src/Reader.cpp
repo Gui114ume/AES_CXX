@@ -16,3 +16,8 @@ chunk_t& Reader::readNextChunk()
     chunk_t* chunk = new chunk_t;
     return *chunk;
 }
+
+void Reader::openFile()
+{
+    std::cout << "Reader::openFile()" << std::endl;
+}

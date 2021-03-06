@@ -2,21 +2,7 @@
 #define IAesEncryptionCypher_HPP
 
 #include <configReader.hpp>
-
-#ifndef CHUNK_DEF
-#define CHUNK_DEF
-
-#define COMPLETE_CHUNK 16 // bytes
-
-typedef unsigned char byte;
-
-typedef struct chunk_s
-{
-    byte part[16];
-    unsigned size;
-} chunk_t;
-
-#endif
+#include <AesTypes.hpp>
 
 class IAesEncryptionCypher
 {
@@ -27,6 +13,21 @@ public:
   virtual void getKey(ConfigReader& config) = 0;
   virtual chunk_t& apply(chunk_t& chunk) = 0;
   virtual ~IAesEncryptionCypher() {};
+
+private:
+  virtual void make_key_sched() = 0;
+  virtual void verify_key_size() = 0;
+  virtual void init_sbox() = 0;
+  virtual void init_rcon() = 0;
+
+  virtual void set_Nb() = 0;
+  virtual void get_Nb() = 0;
+
+  virtual void set_Nk() = 0;
+  virtual void get_Nk() = 0;
+
+  virtual void set_Nr() = 0;
+  virtual void get_Nr() = 0;
 };
 
 #endif

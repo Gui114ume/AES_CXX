@@ -14,3 +14,8 @@ void Writer::appendInFile(chunk_t& chunk)
 {
     std::cout << "Writer::appendInFile()" << std::endl;
 }
+
+void Writer::openFile()
+{
+    std::cout << "Writer::openFile()" << std::endl;
+}
