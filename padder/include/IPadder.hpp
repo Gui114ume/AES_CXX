@@ -1,6 +1,9 @@
 #ifndef IPadder_HPP
 #define IPadder_HPP
 
+#include <cstring>
+#include <cstdlib>
+
 #include <AesTypes.hpp>
 
 
