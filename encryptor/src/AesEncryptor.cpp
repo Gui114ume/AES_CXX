@@ -50,6 +50,7 @@ IAesEncryptionCypher &AesEncryptor::get_cypher(void) const
 
 void AesEncryptor::set_mode(IAesEncryptionMode &mode)
 {
+    std::cout << "set mode" << std::endl;
     m_mode = mode;
 }
 IAesEncryptionMode &AesEncryptor::get_mode(void) const
@@ -57,44 +58,41 @@ IAesEncryptionMode &AesEncryptor::get_mode(void) const
     return m_mode;
 }
 
-AesEncryptor::AesEncryptor(ConfigReader &config, IAesEncryptionCypher &cypher, IAesEncryptionMode &mode)
-    : m_config{config}, m_cypher{cypher}, m_mode{mode}
+AesEncryptor::AesEncryptor(ConfigReader &config)
+    : m_config{config}, m_cypher{make_cypher(config)}, m_mode{make_mode(config)}
 {
     std::cout << "AesEncryptor constructor" << std::endl;
-    init_mapCypherType(mapCypherType);
-    init_mapEncryptionMode(mapEncryptionMode);
-    set_cypher(make_cypher(m_config));
-    set_mode(make_mode(m_config));
 }
 
 IAesEncryptionCypher &AesEncryptor::make_cypher(ConfigReader &config)
 {
+    init_mapCypherType(mapCypherType); 
     switch (mapCypherType[config.cypher_type()])
     {
     case aes128:
     {
         /* code */
-        std::cout << "aes128 not implemented, use aes256" << std::endl;
-        AesCypher256* cypher256 = new AesCypher256;
-        return *cypher256;
+        std::cout << "aes128 not implemented" << std::endl;
+        AesCypher128* cypher128 = new AesCypher128(config);
+        return *cypher128;
     }
     case aes192:
     {
         /* code */
-        std::cout << "aes192 not implemented, use aes256" << std::endl;
-        AesCypher256* cypher256 = new AesCypher256;
-        return *cypher256;
+        std::cout << "aes192 not implemented" << std::endl;
+        AesCypher192* cypher192 = new AesCypher192(config);
+        return *cypher192;
     }
     case aes256:
     {
         /* code */
         std::cout << "aes256 not implemented" << std::endl;
-        AesCypher256* cypher256 = new AesCypher256;
+        AesCypher256* cypher256 = new AesCypher256(config);
         return *cypher256;
     }
     default:
     {
-        AesCypher256* cypher256 = new AesCypher256;
+        AesCypher256* cypher256 = new AesCypher256(config);
         return *cypher256;
     }
     }
@@ -102,6 +100,7 @@ IAesEncryptionCypher &AesEncryptor::make_cypher(ConfigReader &config)
 
 IAesEncryptionMode &AesEncryptor::make_mode(ConfigReader &config)
 {
+    init_mapEncryptionMode(mapEncryptionMode);
     switch (mapEncryptionMode[config.encryption_mode()])
     {
     case ECB:

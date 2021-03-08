@@ -2,17 +2,22 @@
 #define Writer_HPP
 
 #include <iostream>
+#include <fstream>
 
+#include <configReader.hpp>
 #include <AesTypes.hpp>
 
 class Writer
 {
 private:
-    /* data */
+    std::ofstream& m_out;
+    ConfigReader& m_config;
+
+    std::ofstream& get_out();
 public:
-    Writer(/* args */);
+    Writer(ConfigReader& config);
     ~Writer();
-    void openFile();
+    std::ofstream& openFile(ConfigReader& config);
     void appendInFile(chunk_t& chunk);
 };
 

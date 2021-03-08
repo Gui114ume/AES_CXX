@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15.0)
 
-add_library(aesMode
+add_library(aesMode 
     src/AesModeEcb.cpp)
 target_include_directories(aesMode PUBLIC include/)
 include_directories(aesMode PUBLIC ../types/include/)

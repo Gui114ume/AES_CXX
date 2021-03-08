@@ -29,7 +29,7 @@ private:
     IAesEncryptionCypher& make_cypher(ConfigReader& config);
     IAesEncryptionMode& make_mode(ConfigReader& config);
 public:
-    AesEncryptor(ConfigReader& config, IAesEncryptionCypher& cypher, IAesEncryptionMode& mode);
+    AesEncryptor(ConfigReader& config);
     int encrypt();
     ~AesEncryptor();
 };

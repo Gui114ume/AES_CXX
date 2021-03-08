@@ -17,5 +17,7 @@ void pkcsPadder::say_name()
 
 void pkcsPadder::pad(chunk_t& chunk)
 {
+    u8 size = chunk.size;
+    
     std::cout << "pkcsPadder::pad() not implemented" << std::endl;
 }

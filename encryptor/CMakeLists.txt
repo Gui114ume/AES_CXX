@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15.0)
 
-add_library(aesEncryptor
+add_library(aesEncryptor 
     src/AesEncryptor.cpp)
 target_include_directories(aesEncryptor PUBLIC include/)
 include_directories(aesEncryptor PUBLIC ../types/include/)

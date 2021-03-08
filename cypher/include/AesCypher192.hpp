@@ -1,18 +1,18 @@
-#ifndef AesCypher256_HPP
-#define AesCypher256_HPP
+#ifndef AesCypher192_HPP
+#define AesCypher192_HPP
 
 #include "IAesEncryptionCypher.hpp"
 
 #include <iostream>
 
-class AesCypher256 : public IAesEncryptionCypher
+class AesCypher192 : public IAesEncryptionCypher
 {
 public:
-  virtual ~AesCypher256();
+  virtual ~AesCypher192();
   virtual void say_name() override;
   virtual chunk_t& apply(chunk_t& chunk) override;
   virtual void getKey() override;
-  AesCypher256(ConfigReader& config);
+  AesCypher192(ConfigReader& config);
 
 private:
   ConfigReader& m_config;

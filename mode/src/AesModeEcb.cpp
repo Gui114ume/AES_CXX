@@ -47,8 +47,8 @@ AesModeEcb::~AesModeEcb()
 void AesModeEcb::apply(IAesEncryptionCypher& cypher, ConfigReader& config)
 {
     std::cout << "AesModeEcb::apply()" << std::endl;
-    Reader reader;
-    Writer writer;
+    Reader reader(config);
+    Writer writer(config);
     IPadder& padder = make_padder(config);
     unsigned nb_bytes_read = 0;
     chunk_t chunk;

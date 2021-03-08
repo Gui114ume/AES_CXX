@@ -2,17 +2,22 @@
 #define Reader_HPP
 
 #include <iostream>
+#include <fstream>
 
+#include <configReader.hpp>
 #include <AesTypes.hpp>
 
 class Reader
 {
 private:
-    /* data */
+    std::ifstream& m_in;
+    ConfigReader& m_config;
+
+    std::ifstream& get_in();
 public:
-    Reader(/* args */);
+    Reader(ConfigReader& config);
     ~Reader();
-    void openFile();
+    std::ifstream& openFile(ConfigReader& config);
     chunk_t& readNextChunk();
 };
 
