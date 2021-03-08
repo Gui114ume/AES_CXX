@@ -62,7 +62,6 @@ void AesModeEcb::apply(IAesEncryptionCypher& cypher, ConfigReader& config)
         if (chunk.size == COMPLETE_CHUNK)
         {
             // complete CHUNK
-            std::cout<<"complete CHUNK"<<std::endl;
             encrypted_chunk = cypher.apply(chunk);
             writer.appendInFile(encrypted_chunk);
         }

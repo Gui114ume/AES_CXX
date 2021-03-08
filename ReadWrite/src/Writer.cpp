@@ -14,7 +14,6 @@ Writer::~Writer()
 
 void Writer::appendInFile(chunk_t& chunk)
 {
-    std::cout << "Writer::appendInFile()" << std::endl;
     std::cout << chunk.size << std::endl;
     get_out().write((char*)chunk.value, chunk.size);
 }

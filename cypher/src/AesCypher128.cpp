@@ -220,11 +220,10 @@ void AesCypher128::say_name()
 void AesCypher128::getKey()
 {
     m_key = new aes_key_t;
-    m_key->arr_key = new byte[16];
+    m_key->arr_key = new byte[AES_KEY_128_SIZE];
     std::fstream in(m_config.key_filename(), std::ios::in | std::ios::binary );
     in.read((char*)(m_key->arr_key), AES_KEY_128_SIZE); // segfault
     m_key->key_length = in.gcount();
-    std::cout << "AesCypher128::getKey() implemented" <<std::endl;
 }
 
 chunk_t& AesCypher128::apply(chunk_t& chunk)
@@ -250,7 +249,6 @@ chunk_t& AesCypher128::apply(chunk_t& chunk)
     Aes128::ShiftRows(&chunk);
     Aes128::AddRoundKey(&chunk, &(m_key_tab->tab[ 4 * get_Nr()]));
     //std::cout << "encrypted chunk size: " << chunk.size << std::endl; // problem !
-    std::cout << "AesCypher128::apply() not implemented" <<std::endl;
     return chunk;
 }
 

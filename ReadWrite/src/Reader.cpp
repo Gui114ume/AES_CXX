@@ -14,7 +14,6 @@ Reader::~Reader()
 
 chunk_t& Reader::readNextChunk()
 {
-    std::cout << "Reader::readNextChunk()" << std::endl;
     chunk_t* chunk = new chunk_t;
     get_in().read((char*)(chunk->value), COMPLETE_CHUNK);
     chunk->size = get_in().gcount();

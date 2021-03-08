@@ -72,21 +72,18 @@ IAesEncryptionCypher &AesEncryptor::make_cypher(ConfigReader &config)
     case aes128:
     {
         /* code */
-        std::cout << "aes128 not implemented" << std::endl;
         AesCypher128* cypher128 = new AesCypher128(config);
         return *cypher128;
     }
     case aes192:
     {
         /* code */
-        std::cout << "aes192 not implemented" << std::endl;
         AesCypher192* cypher192 = new AesCypher192(config);
         return *cypher192;
     }
     case aes256:
     {
         /* code */
-        std::cout << "aes256 not implemented" << std::endl;
         AesCypher256* cypher256 = new AesCypher256(config);
         return *cypher256;
     }
@@ -106,7 +103,6 @@ IAesEncryptionMode &AesEncryptor::make_mode(ConfigReader &config)
     case ECB:
     {
         /* code */
-        std::cout << "ECB mode not implemented" << std::endl;
         AesModeEcb* modeEcb = new AesModeEcb;
         return *modeEcb;
     }
@@ -128,7 +124,6 @@ IAesEncryptionMode &AesEncryptor::make_mode(ConfigReader &config)
 
 int AesEncryptor::encrypt()
 {
-    std::cout << "AesEncryptor::encrypt() not implemented" << std::endl;
     get_mode().apply(get_cypher(), get_config());
     return 1;
 }
