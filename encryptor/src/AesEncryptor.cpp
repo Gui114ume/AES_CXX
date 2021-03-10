@@ -10,7 +10,10 @@ enum cypherType
 enum encryptionMode
 {
     ECB,
-    CBC
+    CBC,
+    CFB,
+    OFB,
+    CTR
 };
 
 std::map<std::string, cypherType> mapCypherType;
@@ -27,6 +30,9 @@ void init_mapEncryptionMode(std::map<std::string, encryptionMode> map)
 {
     mapEncryptionMode["ECB"] = ECB;
     mapEncryptionMode["CBC"] = CBC;
+    mapEncryptionMode["CFB"] = CFB;
+    mapEncryptionMode["OFB"] = OFB;
+    mapEncryptionMode["CTR"] = CTR;
 }
 
 void AesEncryptor::set_config(ConfigReader &config)
@@ -113,9 +119,29 @@ IAesEncryptionMode &AesEncryptor::make_mode(ConfigReader &config)
         AesModeEcb* modeEcb = new AesModeEcb;
         return *modeEcb;
     }
+    case CFB:
+    {
+        /* code */
+        std::cout << "CFB mode not implemented, use ECB" << std::endl;
+        AesModeEcb* modeEcb = new AesModeEcb;
+        return *modeEcb;
+    }
+    case OFB:
+    {
+        /* code */
+        std::cout << "OFB mode not implemented, use ECB" << std::endl;
+        AesModeEcb* modeEcb = new AesModeEcb;
+        return *modeEcb;
+    }
+    case CTR:
+    {
+        /* code */
+        std::cout << "CTR mode not implemented, use ECB" << std::endl;
+        AesModeEcb* modeEcb = new AesModeEcb;
+        return *modeEcb;
+    }
     default:
     {
-        std::cout << "ECB mode not implemented" << std::endl;
         AesModeEcb* modeEcb = new AesModeEcb;
         return *modeEcb;
     }
